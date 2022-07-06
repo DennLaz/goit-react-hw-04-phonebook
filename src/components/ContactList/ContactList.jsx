@@ -1,32 +1,36 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import styles from './contactList.module.css'
+import ContactListItem from './ContactListItem';
+import styles from './contactList.module.css';
 
 const ContactList = ({ contact, removeContacts }) => {
-    const contactEl = contact.map(({ id, name, number }) => (
-        <li className={styles.item} key={id}><span className={styles.name}>{name}:</span> <span className={styles.text}>{number}</span>
-            <button className={styles.btn} onClick={() => removeContacts(id)}>Delete</button></li>
-    ))
+  const contactEl = contact.map(({ id, name, number }) => (
+    <ContactListItem
+      key={id}
+      removeContacts={removeContacts}
+      id={id}
+      name={name}
+      number={number}
+    />
+  ));
 
-    return (
-        <ul className={styles.list}>
-            {contactEl}
-        </ul>
-    )
-}
+  return <ul className={styles.list}>{contactEl}</ul>;
+};
 
 ContactList.defaultProps = {
-    contact: [],
-    removeContacts: ()=>{},
-}
+  contact: [],
+  removeContacts: () => {},
+};
 
 ContactList.propTypes = {
-    removeContacts: PropTypes.func,
-    contact: PropTypes.arrayOf(PropTypes.exact({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        number: PropTypes.string.isRequired,
-    })),
-}
+  removeContacts: PropTypes.func,
+  contact: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+};
 
 export default ContactList;

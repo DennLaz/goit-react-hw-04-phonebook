@@ -1,5 +1,5 @@
 // import { Component } from 'react';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -76,7 +76,7 @@ ContactsForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default ContactsForm;
+export default memo(ContactsForm);
 
 // class ContactsForm extends Component {
 //   // state = {

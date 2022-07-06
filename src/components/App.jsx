@@ -1,5 +1,5 @@
 // import { Component } from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { nanoid } from 'nanoid';
 
 import Section from './Section';
@@ -31,7 +31,7 @@ export function App() {
     }
   }, [contacts])
 
-  function addContacts ({ name, number }) {
+  const addContacts = useCallback(({ name, number }) =>{
     const newContact = {
       name,
       number,
@@ -40,20 +40,20 @@ export function App() {
     setContacts(prevState => {
       const findName = contacts.find(el => el.name === name);
       if (!findName) {
-        return [...prevState, newContact ]
+        return [...prevState, newContact]
       } else {
         alert(`${newContact.name} is already in contacts`)
       }
     });
-  };
+  }, [])
 
-  function removeContacts(id) {
+  const removeContacts = useCallback((id) => {
     setContacts( prevContacts => prevContacts.filter(contact => contact.id !== id));
-  };
+  }, [setContacts])
 
-  function handleFilter({ target }) {
+  const handleFilter = useCallback(({ target }) => {
    return setFilter(target.value);
-  };
+  }, [setFilter])
 
   function getFiltredContacts() {
     if (!filter) {
