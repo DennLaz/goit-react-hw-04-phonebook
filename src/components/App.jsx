@@ -31,7 +31,7 @@ export function App() {
     }
   }, [contacts])
 
-  const addContacts = useCallback(({ name, number }) =>{
+  function addContacts ({ name, number }) {
     const newContact = {
       name,
       number,
@@ -45,7 +45,7 @@ export function App() {
         alert(`${newContact.name} is already in contacts`)
       }
     });
-  }, [])
+  };
 
   const removeContacts = useCallback((id) => {
     setContacts( prevContacts => prevContacts.filter(contact => contact.id !== id));
